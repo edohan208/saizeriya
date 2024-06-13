@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サイゼリヤジェネレーター</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .number-container {
+            font-size: 4em;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 4em;
+            text-align: center;
+        }
+        .number-animation {
+            animation: spin 10s ease-in-out forwards;
+        }
+        @keyframes spin {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="number-container" id="slot1">0</div>
+    <div class="number-container" id="slot2">0</div>
+    <div class="number-container" id="slot3">0</div>
+    <div class="number-container" id="slot4">0</div>
+
+    <script>
+        function generateRandomNumber() {
+            const firstDigit = Math.floor(1 + Math.random() * 4);
+
+           let secondDigit;
+            if (firstDigit === 4) {
+                secondDigit = Math.random() < 0.5 ? 1 : 3;
+            } else if (firstDigit === 3) {
+                const options = [1, 2, 9];
+                secondDigit = options[Math.floor(Math.random() * options.length)];
+            } else if (firstDigit === 1) {
+                secondDigit = Math.floor(2 + Math.random() * 3);
+            } else {
+                secondDigit = Math.floor(1 + Math.random() * 4);
+            }
+
+           let thirdDigit;
+            if (secondDigit === 9) {
+                thirdDigit = Math.random() < 0.5 ? 0 : 1;
+            } else if (secondDigit === 1) {
+                thirdDigit = 0;
+            } else if (firstDigit === 1 && secondDigit === 2) {
+                thirdDigit = 0;
+            } else if (firstDigit === 1 && secondDigit === 3) {
+                thirdDigit = 0;
+            } else if (firstDigit === 1 && secondDigit === 4) {
+                thirdDigit = getRandomFromSet([0, 1, 2, 5]);
+            } else if (firstDigit === 2 && secondDigit === 1) {
+                thirdDigit = 0;
+            } else if (firstDigit === 2 && secondDigit === 2) {
+                thirdDigit = 0;
+            } else if (firstDigit === 2 && secondDigit === 3) {
+                thirdDigit = Math.floor(Math.random() * 3);
+            } else if (firstDigit === 2 && secondDigit === 4) {
+                thirdDigit = Math.random() < 0.5 ? 0 : 1;
+            } else if (firstDigit === 3 && secondDigit === 2) {
+                thirdDigit = Math.random() < 0.5 ? 0 : 1;
+            } else if (firstDigit === 4 && secondDigit === 3) {
+                thirdDigit = 0;
+            } else {
+                thirdDigit = Math.floor(1 + Math.random() * 4);
+            }
+
+           let fourthDigit;
+            if (firstDigit === 1 && secondDigit === 2 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([2, 5, 7, 8, 9]);
+            } else if (firstDigit === 1 && secondDigit === 3 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([1, 5, 7]);
+            } else if (firstDigit === 1 && secondDigit === 4 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([1, 2, 3, 4, 5, 6, 7, 8]);
+            } else if (firstDigit === 1 && secondDigit === 4 && thirdDigit === 1) {
+                fourthDigit = getRandomFromSet([3, 5, 7]);
+            } else if (firstDigit === 1 && secondDigit === 4 && thirdDigit === 2) {
+                fourthDigit = getRandomFromSet([2, 3]);
+            } else if (firstDigit === 1 && secondDigit === 4 && thirdDigit === 2) {
+                fourthDigit = getRandomFromSet([2, 3, 5]);
+            } else if (firstDigit === 1 && secondDigit === 4 && thirdDigit === 2) {
+                fourthDigit = getRandomFromSet([2, 3]);
+            } else if (firstDigit === 1 && secondDigit === 4 && thirdDigit === 5) {
+                fourthDigit = 2
+            } else if (firstDigit === 2 && secondDigit === 1 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([1, 3, 6, 8, 9]);
+            } else if (firstDigit === 2 && secondDigit === 2 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([3, 4, 6, 8]);
+            } else if (firstDigit === 2 && secondDigit === 3 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([1, 3, 4, 5, 6, 8]);
+            } else if (firstDigit === 2 && secondDigit === 3 && thirdDigit === 1) {
+                fourthDigit = getRandomFromSet([0, 6, 7]);
+            } else if (firstDigit === 2 && secondDigit === 3 && thirdDigit === 2) {
+                fourthDigit = getRandomFromSet([0, 1, 8]);
+            } else if (firstDigit === 2 && secondDigit === 4 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([2, 3, 4, 6, 7]);
+            } else if (firstDigit === 2 && secondDigit === 4 && thirdDigit === 1) {
+                fourthDigit = getRandomFromSet([3, 8]);
+            } else if (firstDigit === 3 && secondDigit === 1 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([1, 2, 3, 4, 6, 8, 9]);
+            } else if (firstDigit === 3 && secondDigit === 2 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([1, 4, 5, 6, 7]);
+            } else if (firstDigit === 3 && secondDigit === 2 && thirdDigit === 1) {
+                fourthDigit = getRandomFromSet([2, 3, 5]);
+            } else if (firstDigit === 3 && secondDigit === 9 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([1, 4, 5, 6, 7]);
+            } else if (firstDigit === 3 && secondDigit === 9 && thirdDigit === 1) {
+                fourthDigit = getRandomFromSet([2, 3, 5]);
+            } else if (firstDigit === 4 && secondDigit === 1 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([5, 6]);
+            } else if (firstDigit === 4 && secondDigit === 3 && thirdDigit === 0) {
+                fourthDigit = getRandomFromSet([1, 4, 7]);
+            }
+
+
+
+            return `${firstDigit}${secondDigit}${thirdDigit}${fourthDigit}`;
+        }
+
+
+        function getRandomFromSet(set) {
+            return set[Math.floor(Math.random() * set.length)];
+        }
+
+        function displayRandomNumber() {
+            const numberElement = document.getElementById('randomNumber');
+            numberElement.textContent = generateRandomNumber();
+        }
+
+        function animateSlots() {
+            const slot1 = document.getElementById('slot1');
+            const slot2 = document.getElementById('slot2');
+            const slot3 = document.getElementById('slot3');
+            const slot4 = document.getElementById('slot4');
+
+            if (!slot1 || !slot2 || !slot3 || !slot4) {
+                console.error('One or more slots not found.');
+                return;
+            }
+
+            animateRandomDigits(slot1);
+            animateRandomDigits(slot2);
+            animateRandomDigits(slot3);
+            animateRandomDigits(slot4);
+
+            setTimeout(function() {
+                const randomNumber = generateRandomNumber().toString();
+                const digits = randomNumber.padStart(4, '0');
+
+                slot1.classList.add('number-animation');
+                slot1.textContent = digits[0];
+
+                setTimeout(function() {
+                    slot2.classList.add('number-animation');
+                    slot2.textContent = digits[1];
+                }, 1000);
+
+                setTimeout(function() {
+                    slot3.classList.add('number-animation');
+                    slot3.textContent = digits[2];
+                }, 2000);
+
+                setTimeout(function() {
+                    slot4.classList.add('number-animation');
+                    slot4.textContent = digits[3];
+                }, 3000);
+            }, 1000);
+
+        }
+
+        function animateRandomDigits(slot) {
+            let count = 0;
+            const interval = setInterval(function() {
+                slot.textContent = Math.floor(Math.random() * 10);
+                count++;
+                if (count >= 20) {
+                    clearInterval(interval);
+                }
+            }, 50);
+        }
+
+        window.onload = function() {
+            animateSlots();
+        };
+    </script>
+</body>
+</html>
